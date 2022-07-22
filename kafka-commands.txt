@@ -1,0 +1,11 @@
+kafka-topics --create --bootstrap-server localhost:9092 --partitions 2 --topic demo-test-1
+kafka-topics --create --bootstrap-server localhost:9092 --partitions 1 --topic sink-test-1
+kafka-console-producer --broker-list localhost:9092 --topic demo-test-1 < input-file.txt
+kafka-console-consumer \
+  --topic demo-test-1 \
+  --bootstrap-server localhost:9092 \
+  --from-beginning
+kafka-console-consumer \
+  --topic sink-test-1 \
+  --bootstrap-server localhost:9092 \
+  --from-beginning
