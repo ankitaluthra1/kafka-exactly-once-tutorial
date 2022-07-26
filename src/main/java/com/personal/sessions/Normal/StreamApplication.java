@@ -3,10 +3,10 @@ package com.personal.sessions.Normal;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 
-public class Main1 {
+public class StreamApplication {
 
     public static void main(String[] args) {
-        Consumer consumer = new Consumer();
+        Consumer consumer = new Consumer("demo-test-1");
         Producer producer = new Producer();
         try {
             while (true) {
@@ -14,10 +14,12 @@ public class Main1 {
 
                     for (ConsumerRecord record : records) {
                         System.out.println(String.format("Read - %s, from partition: %s", record.value(), record.partition()));
-                        System.out.println("Processed");
                         Thread.sleep(1000);
-                            producer.produce("Processed record " + record.value());
-
+                            producer.produce("sink-test-1","Processed record " + record.value());
+                    }
+                    if(!records.isEmpty()) {
+                        System.out.println("Committed current poll");
+                        consumer.commitSync();
                     }
             }
         } catch (Exception e) {

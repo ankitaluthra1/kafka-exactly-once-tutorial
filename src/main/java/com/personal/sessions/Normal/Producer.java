@@ -18,8 +18,8 @@ public class Producer {
         kafkaProducer = new KafkaProducer(properties);
     }
 
-    public void produce(String message) {
-        kafkaProducer.send(new ProducerRecord("sink-test-1", message));
+    public void produce(String topic, String message) {
+        kafkaProducer.send(new ProducerRecord(topic, message));
     }
 
     public void close(){

@@ -1,7 +1,9 @@
 package com.personal.sessions.Normal;
 
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.consumer.RoundRobinAssignor;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -12,21 +14,28 @@ public class Consumer {
 
     private KafkaConsumer kafkaConsumer;
 
-    public Consumer() {
+    public Consumer(String topic) {
 
         Properties properties = new Properties();
-        properties.put("bootstrap.servers", "localhost:9092");
-        properties.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        properties.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        properties.put("group.id", "test-group");
-        properties.put("enable.auto.commit", true);
+        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
+        properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
+        properties.put(ConsumerConfig.PARTITION_ASSIGNMENT_STRATEGY_CONFIG, RoundRobinAssignor.class.getName());
+        properties.put(ConsumerConfig.GROUP_ID_CONFIG, "test-group-3");
+        properties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
+        properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
+
 
         kafkaConsumer = new KafkaConsumer(properties);
-        kafkaConsumer.subscribe(List.of("demo-test-1"));
+        kafkaConsumer.subscribe(List.of(topic));
     }
 
     public ConsumerRecords<String, String> read() {
-        return kafkaConsumer.poll(Duration.ofMillis(10));
+        return kafkaConsumer.poll(Duration.ofMillis(100));
+    }
+
+    public void commitSync() {
+        kafkaConsumer.commitSync();
     }
 
     public void close() {
