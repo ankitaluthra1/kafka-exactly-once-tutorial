@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StreamApplication {
+public class Application {
 
     public static void main(String[] args) {
         Consumer consumer = new Consumer("demo-test-17");

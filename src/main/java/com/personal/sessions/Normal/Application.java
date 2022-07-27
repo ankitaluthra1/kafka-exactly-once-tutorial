@@ -3,7 +3,7 @@ package com.personal.sessions.Normal;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 
-public class StreamApplication {
+public class Application {
 
     public static void main(String[] args) {
         Consumer consumer = new Consumer("demo-test-1");
