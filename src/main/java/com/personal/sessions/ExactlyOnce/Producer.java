@@ -2,6 +2,7 @@ package com.personal.sessions.ExactlyOnce;
 
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.TopicPartition;
 
@@ -14,12 +15,12 @@ public class Producer {
 
     public Producer(boolean isIdempotent) {
         Properties properties = new Properties();
-        properties.put("bootstrap.servers", "localhost:9092");
-        properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
+        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
         if(isIdempotent) {
-            properties.put("enable.idempotence", "true");
-            properties.put("transactional.id", "prod-1");
+            properties.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, "true");
+            properties.put(ProducerConfig.TRANSACTIONAL_ID_CONFIG, "prod-1");
         }
         kafkaProducer = new KafkaProducer(properties);
         if(isIdempotent)
