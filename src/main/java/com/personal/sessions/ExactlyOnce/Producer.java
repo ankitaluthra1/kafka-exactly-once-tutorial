@@ -20,7 +20,7 @@ public class Producer {
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
         if(isIdempotent) {
             properties.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, "true");
-            properties.put(ProducerConfig.TRANSACTIONAL_ID_CONFIG, "prod-1");
+            properties.put(ProducerConfig.TRANSACTIONAL_ID_CONFIG, "prod-2");
         }
         kafkaProducer = new KafkaProducer(properties);
         if(isIdempotent)

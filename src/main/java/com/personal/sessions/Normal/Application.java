@@ -15,7 +15,7 @@ public class Application {
                     for (ConsumerRecord record : records) {
                         System.out.println(String.format("Read - %s, from partition: %s", record.value(), record.partition()));
                         Thread.sleep(1000);
-                            producer.produce(Consumer.DOWNTREAM_TOPIC,"Processed record " + record.value());
+                            producer.produce(Consumer.DOWNSTREAM_TOPIC,"Processed record " + record.value());
                     }
                     if(!records.isEmpty()) {
                         System.out.println("Committed current poll");

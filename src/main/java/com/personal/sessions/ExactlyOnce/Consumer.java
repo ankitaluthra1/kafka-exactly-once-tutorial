@@ -12,7 +12,9 @@ import java.util.Properties;
 public class Consumer {
 
     private KafkaConsumer kafkaConsumer;
-    public static final String CONSUMER_GROUP_ID = "test-group-16";
+    public static final String CONSUMER_GROUP_ID = "test-group-22";
+    public static final String UPSTREAM_TOPIC = "demo-test-22";
+    public static final String DOWNSTREAM_TOPIC = "sink-test-22";
 
     public Consumer(String topic) {
 

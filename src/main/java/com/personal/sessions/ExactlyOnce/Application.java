@@ -12,7 +12,7 @@ import java.util.Map;
 public class Application {
 
     public static void main(String[] args) {
-        Consumer consumer = new Consumer("demo-test-17");
+        Consumer consumer = new Consumer(Consumer.UPSTREAM_TOPIC);
         Producer producer = new Producer(true);
         try {
             while (true) {
@@ -23,10 +23,10 @@ public class Application {
                 for (ConsumerRecord record : records) {
                     System.out.println(String.format("Read - %s, from partition: %s", record.value(), record.partition()));
                     Thread.sleep(500);
-                    producer.produce("sink-test-17", "Processed record " + record.value());
+                    producer.produce(Consumer.DOWNSTREAM_TOPIC, "Processed record " + record.value());
                 }
                 if(!records.isEmpty()) {
-                    Map<TopicPartition, OffsetAndMetadata> topicPartitionOffsetAndMetadataMap = commitTransaction(records);
+                    Map<TopicPartition, OffsetAndMetadata> topicPartitionOffsetAndMetadataMap = getOffset(records);
                     producer.sendOffsetsToTransaction(topicPartitionOffsetAndMetadataMap);
                     producer.commitTransaction();
                     System.out.println("Committed current poll");
@@ -42,7 +42,7 @@ public class Application {
 
     }
 
-    private static Map<TopicPartition, OffsetAndMetadata> commitTransaction(ConsumerRecords<String, String> records) {
+    private static Map<TopicPartition, OffsetAndMetadata> getOffset(ConsumerRecords<String, String> records) {
         Map<TopicPartition, OffsetAndMetadata> offsetsToCommit = new HashMap<>();
         for (TopicPartition partition : records.partitions()) {
             List<ConsumerRecord<String, String>> partitionedRecords = records.records(partition);

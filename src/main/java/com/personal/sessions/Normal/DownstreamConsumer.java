@@ -6,7 +6,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 public class DownstreamConsumer {
 
     public static void main(String[] args) {
-        Consumer consumer = new Consumer(Consumer.DOWNTREAM_TOPIC);
+        Consumer consumer = new Consumer(Consumer.DOWNSTREAM_TOPIC);
         try {
             while (true) {
                 ConsumerRecords<String, String> records = consumer.read();

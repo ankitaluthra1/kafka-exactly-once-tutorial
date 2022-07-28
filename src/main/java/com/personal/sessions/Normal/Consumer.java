@@ -14,7 +14,7 @@ public class Consumer {
     private KafkaConsumer kafkaConsumer;
 
     public static final String UPSTREAM_TOPIC = "demo-test-8";
-    public static final String DOWNTREAM_TOPIC = "sink-test-8";
+    public static final String DOWNSTREAM_TOPIC = "sink-test-8";
 
     public Consumer(String topic) {
 

@@ -1,7 +1,7 @@
 kafka-topics --create --bootstrap-server localhost:9092 --partitions 2 --topic demo-test-1
-kafka-topics --bootstrap-server localhost:9092 --alter --topic demo-test-1 --partitions 3
-kafka-topics --describe --bootstrap-server localhost:9092 --topic demo-test-1
+kafka-topics --describe --bootstrap-server localhost:9092 --topic __consumer_offsets
 kafka-topics --create --bootstrap-server localhost:9092 --partitions 1 --topic sink-test-1
+kafka-topics --delete --bootstrap-server localhost:9092 --topic sink-test-1
 kafka-console-producer --broker-list localhost:9092 --topic demo-test-1 < input-file.txt
 kafka-console-consumer \
   --topic demo-test-1 \
