@@ -6,7 +6,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 public class Application {
 
     public static void main(String[] args) {
-        Consumer consumer = new Consumer("demo-test-1");
+        Consumer consumer = new Consumer(Consumer.UPSTREAM_TOPIC);
         Producer producer = new Producer();
         try {
             while (true) {
@@ -15,7 +15,7 @@ public class Application {
                     for (ConsumerRecord record : records) {
                         System.out.println(String.format("Read - %s, from partition: %s", record.value(), record.partition()));
                         Thread.sleep(1000);
-                            producer.produce("sink-test-1","Processed record " + record.value());
+                            producer.produce(Consumer.DOWNTREAM_TOPIC,"Processed record " + record.value());
                     }
                     if(!records.isEmpty()) {
                         System.out.println("Committed current poll");

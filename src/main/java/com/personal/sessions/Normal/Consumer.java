@@ -6,13 +6,15 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.consumer.RoundRobinAssignor;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 public class Consumer {
 
     private KafkaConsumer kafkaConsumer;
+
+    public static final String UPSTREAM_TOPIC = "demo-test-8";
+    public static final String DOWNTREAM_TOPIC = "sink-test-8";
 
     public Consumer(String topic) {
 
